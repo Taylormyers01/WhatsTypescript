@@ -33,6 +33,23 @@
           font-size: 3.5rem;
         }
       }
+      
+      .list-unstyled{
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr; 
+          grid-column-gap: 10px;
+          grid-template-rows: auto;
+          grid-row-gap: 10px;
+          list-style-type: none;
+          list-style-type: none;
+      }    
+      .list-unstyled ul{
+        background-color: gainsboro;
+        border-radius: 10px;
+        max-height: 300px;
+        overflow-y:scroll;
+      }
+
     </style>
 
     
@@ -68,9 +85,10 @@
 <main class="container">
   <div class="bg-light p-5 rounded">
     <h1>Definition</h1>
-    <p class="lead">Use this part of the page to present your results from the API call.</p>
-    <ul class="list-unstyled" id = "list-got-style">
+    <p class="lead">Dictionary.</p>
+    <ul class="list-unstyled" id = "list-got-style" style="font-size: 10px">
     </ul>
+    
   </div>
 </main>
 

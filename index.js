@@ -14,10 +14,11 @@ form.onsubmit = function () {
         var data = JSON.parse(this.response);
         var dict = data[0];
         if (req.status >= 200 && req.status < 400) {
-            addLi("Word to define " + dict.word);
+            var topUl = document.createElement('ul');
+            topUl.append(createLi("Word to define " + dict.word));
             for (var _i = 0, _c = dict.meanings; _i < _c.length; _i++) {
                 var meaning = _c[_i];
-                addLi("Part of speech: " + meaning.partOfSpeech);
+                topUl.append(createLi("Part of speech: " + meaning.partOfSpeech));
                 var ul = document.createElement('ul');
                 var num = 1;
                 for (var _d = 0, _e = meaning.definitions; _d < _e.length; _d++) {
@@ -33,11 +34,11 @@ form.onsubmit = function () {
                     if (def.example)
                         ul3.appendChild(createLi("Example: " + def.example + "\n"));
                     ul.appendChild(ul3);
-                    formDataList.appendChild(ul);
+                    topUl.appendChild(ul);
                     num++;
                 }
             }
-            addLi("Pheonetics: ");
+            topUl.append(createLi("Pheonetics: "));
             for (var _f = 0, _g = dict.phonetics; _f < _g.length; _f++) {
                 var item = _g[_f];
                 var ul2 = document.createElement('ul');
@@ -49,11 +50,12 @@ form.onsubmit = function () {
                     ul2.appendChild(createLi("License name: " + ((_a = item.license) === null || _a === void 0 ? void 0 : _a.name)));
                 if (item.sourceUrl)
                     ul2.appendChild(createLi("License URL: " + ((_b = item.license) === null || _b === void 0 ? void 0 : _b.url) + "\n"));
-                formDataList.appendChild(ul2);
+                topUl.appendChild(ul2);
             }
-            addLi("License Name: " + dict.license.name);
-            addLi("License URL: " + dict.license.url);
-            addLi("Source URL: " + dict.sourceUrls.urls);
+            topUl.append(createLi("License Name: " + dict.license.name));
+            topUl.append(createLi("License URL: " + dict.license.url));
+            topUl.append(createLi("Source URL: " + dict.sourceUrls.urls));
+            formDataList.appendChild(topUl);
         }
         else {
             console.log('error');

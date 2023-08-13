@@ -20,9 +20,10 @@ form.onsubmit = () => {
   var dict = data[0] as dictionary;
 
   if (req.status >= 200 && req.status < 400) {
-    addLi("Word to define " + dict.word);
+    const topUl = document.createElement('ul');
+    topUl.append(createLi("Word to define " + dict.word));
     for(const meaning of dict.meanings){
-      addLi("Part of speech: " + meaning.partOfSpeech);
+      topUl.append(createLi("Part of speech: " + meaning.partOfSpeech));
       const ul = document.createElement('ul');
       var num = 1;
       for(const def of meaning.definitions){
@@ -33,22 +34,24 @@ form.onsubmit = () => {
         if(def.antonyms) ul3.appendChild(createLi("Antonyms" + def.antonyms + "\n"));
         if(def.example) ul3.appendChild(createLi("Example: " + def.example + "\n"));
         ul.appendChild(ul3);
-        formDataList.appendChild(ul);
+        topUl.appendChild(ul);
         num++;
       }
     }
-    addLi("Pheonetics: ");
+    topUl.append(createLi("Pheonetics: "));
     for(const item of dict.phonetics){
       const ul2 = document.createElement('ul');
       if(item.text) ul2.appendChild(createLi("Text: " + item.text));
       if(item.audio) ul2.appendChild(createLi("Audio: " + item.audio + "\n"));
       if(item.license) ul2.appendChild(createLi("License name: " + item.license?.name));
       if(item.sourceUrl) ul2.appendChild(createLi("License URL: " + item.license?.url + "\n"));
-      formDataList.appendChild(ul2);
+      topUl.appendChild(ul2);
     }
-    addLi("License Name: " + dict.license.name);
-    addLi("License URL: " + dict.license.url);
-    addLi("Source URL: " + dict.sourceUrls.urls);
+    topUl.append(createLi("License Name: " + dict.license.name));
+    topUl.append(createLi("License URL: " + dict.license.url));
+    topUl.append(createLi("Source URL: " + dict.sourceUrls.urls));
+
+    formDataList.appendChild(topUl);
   } else {
     console.log('error')
   } 
